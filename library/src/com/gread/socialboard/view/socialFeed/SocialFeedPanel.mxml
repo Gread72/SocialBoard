@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:Group xmlns:fx="http://ns.adobe.com/mxml/2009" 
+		 xmlns:s="library://ns.adobe.com/flex/spark" 
+		 xmlns:mx="library://ns.adobe.com/flex/mx" 
+		 xmlns:social="com.gread.socialboard.view.socialFeed.*">
+	<fx:Declarations>
+		<!-- Place non-visual elements (e.g., services, value objects) here -->
+	</fx:Declarations>
+	<fx:Script>
+		<![CDATA[
+			import mx.collections.ArrayCollection;
+			import mx.collections.IList;
+			import mx.controls.List;
+			
+			[Bindable]
+			private var _dataProvider:IList;
+			
+			public function get dataProvider():IList
+			{
+				return _dataProvider;
+			}
+
+			public function set dataProvider(value:IList):void
+			{
+				_dataProvider = value;
+			}
+
+		]]>
+	</fx:Script>
+	
+	<s:Scroller height="100%" width="100%" horizontalScrollPolicy="auto" verticalScrollPolicy="auto" top="20">
+		<social:SocialFeedDisplay data="{_dataProvider as ArrayCollection}" width="{this.parentApplication.width}" height="{this.parentApplication.height}" />	
+	</s:Scroller>
+	<!--
+	<social:SourceList id="sourceList"  width="{this.width}" height="{this.height}" dataProvider="{_dataProvider}" visible="false"  useVirtualLayout="false"
+							   itemRenderer="com.gread.socialboard.view.socialFeed.SourceListItemRenderer" />
+	-->
+</s:Group>

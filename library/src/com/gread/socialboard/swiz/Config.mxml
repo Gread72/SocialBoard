@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<swiz:Swiz xmlns:beans="com.gread.socialboard.swiz.*"
+	   xmlns:fx="http://ns.adobe.com/mxml/2009"
+	   xmlns:swiz="http://swiz.swizframework.org"
+	   xmlns:model="com.gread.socialboard.model.*"
+	   xmlns:service="com.gread.socialboard.service.*"
+	   xmlns:controller="com.gread.socialboard.controller.*">
+	<fx:Script>
+		<![CDATA[
+			import com.gread.socialboard.model.*;
+		]]>
+	</fx:Script>
+	
+	<swiz:config>
+		<swiz:SwizConfig eventPackages="com.gread.socialboard.events.*, org.soenkerohde.Tweeter.event.*" 
+						 viewPackages="com.gread.socialboard.view.*, com.gread.socialboard.view.home.*" />	
+	</swiz:config>
+	
+	
+	<swiz:BeanProvider>
+		<swiz:Prototype type="{HomeViewPM}" id="homeViewPM" />
+		<swiz:Prototype type="{SocialFeedViewPM}" id="socialFeedViewPM" />
+		<swiz:Prototype type="{TwitterAuthPanelPM}" id="twitterAuthPanelPM" />
+		<swiz:Prototype type="{FacebookPanelPM}" id="facebookPanelPM" />
+		<model:ApplicationModel id="applicationModel" />
+		<controller:MainController id="mainController" />
+		<service:TwitterService id="twitterService" />
+		<service:FacebookService id="facebookService" />
+		<service:HTTPSourceService id="httpService" />
+	</swiz:BeanProvider>
+	
+	
+</swiz:Swiz>

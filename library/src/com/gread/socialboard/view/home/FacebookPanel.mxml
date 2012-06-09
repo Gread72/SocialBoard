@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:Group xmlns:fx="http://ns.adobe.com/mxml/2009" 
+		 xmlns:s="library://ns.adobe.com/flex/spark" 
+		 xmlns:mx="library://ns.adobe.com/flex/mx" 
+		 creationComplete="creationCompleteHandler(event)" initialize="creationCompleteHandler(event)">
+	<fx:Declarations>
+		<!-- Place non-visual elements (e.g., services, value objects) here -->
+	</fx:Declarations>
+	<fx:Script>
+		<![CDATA[
+			import com.gread.socialboard.model.FacebookPanelPM;
+			
+			import mx.events.FlexEvent;
+			
+			[Inject]
+			[Bindable]
+			public var facebookPanelPM:FacebookPanelPM;
+			
+			private var _timer:Timer = new Timer(500); 
+			
+			protected function creationCompleteHandler(event:FlexEvent):void
+			{
+				_timer.addEventListener(TimerEvent.TIMER, onTimer);
+				_timer.start();
+				
+			}
+			
+			protected function onTimer(event:TimerEvent):void
+			{
+				if(facebookPanelPM){
+					if(facebookPanelPM.status == FacebookPanelPM.FB_STATUS_NOT_AUTHENTICATED){
+						facebookPanelPM.getFacebookContent(this);
+						_timer.stop();
+						_timer.removeEventListener(TimerEvent.TIMER, onTimer);
+					}
+				}
+				
+			}
+			
+		]]>
+	</fx:Script>
+	<s:VGroup>
+		<s:Button id="setUpFBBtn" label="Facebook Login" click="facebookPanelPM.getFacebookContent(this)" width="160" />
+		<s:Label id="lblFBStatus" text="{facebookPanelPM.status}" />
+	</s:VGroup>
+	
+</s:Group>

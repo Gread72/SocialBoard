@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:Group xmlns:fx="http://ns.adobe.com/mxml/2009" 
+		 xmlns:s="library://ns.adobe.com/flex/spark" 
+		 xmlns:mx="library://ns.adobe.com/flex/mx" 
+		 creationComplete="creationCompleteHandler(event)"
+		 currentState="{twitterAuthPanel.currentState}">
+	
+	<fx:Declarations>
+		<!-- Place non-visual elements (e.g., services, value objects) here -->
+	</fx:Declarations>
+	
+	<fx:Script>
+		<![CDATA[
+			import com.gread.socialboard.model.ApplicationModel;
+			import com.gread.socialboard.model.TwitterAuthPanelPM;
+			
+			import mx.events.FlexEvent;
+			import mx.managers.CursorManager;
+			
+			[Inject]
+			[Bindable]
+			public var twitterAuthPanel:TwitterAuthPanelPM;
+			
+			[Inject]
+			[Bindable]
+			public var appModel:ApplicationModel;
+			
+			private var _timer:Timer = new Timer(500);
+			
+			protected function creationCompleteHandler(event:FlexEvent):void
+			{
+				_timer.addEventListener(TimerEvent.TIMER, onTimer);
+				_timer.start();
+			}
+			
+			protected function onTimer(event:TimerEvent):void
+			{
+				if(appModel){
+					if(currentState == "initial" && !appModel.isTwitterServiceAuthenticated){
+						twitterAuthPanel.authenticate();
+						_timer.stop();
+						_timer.removeEventListener(TimerEvent.TIMER, onTimer);
+						CursorManager.removeBusyCursor();
+					}
+				}
+				
+				
+			}
+			
+		]]>
+	</fx:Script>
+	
+	<s:states>
+		<s:State name="initial" />
+		<s:State name="unauthenticated" />
+		<s:State name="authenticated" />
+	</s:states>
+	
+	<s:VGroup includeIn="initial">
+		<!--<s:Label text="Loading" verticalCenter="0" horizontalCenter="0"/>-->
+		<s:Button label="Twitter Login" click="twitterAuthPanel.authenticate();" width="160"  />
+	</s:VGroup>
+	
+	
+	<s:Group includeIn="unauthenticated" horizontalCenter="0" verticalCenter="0">
+		<s:layout>
+			<s:VerticalLayout verticalAlign="middle" />
+		</s:layout>
+		<s:Label text="PIN" />
+		<s:TextInput id="pin"
+					 enabled="{!twitterAuthPanel.pinPending}"
+					 restrict="0-9" />
+		<s:Button id="pinBtn" label="Validate PIN"
+				  enabled="{!twitterAuthPanel.pinPending &amp;&amp; pin.text != ''}"
+				  click="twitterAuthPanel.pinClickHandler(pin.text)"/>
+	</s:Group>
+	
+	<s:Group includeIn="authenticated"
+			 horizontalCenter="0"
+			 verticalCenter="0">
+		<s:layout>
+			<s:VerticalLayout />
+		</s:layout>
+		<s:Label text="Hello Twitter User - {twitterAuthPanel.screenName}" />
+		<!--
+		<s:Label text="Set Status" enabled="{!twitterAuthPanel.statusPending}" />
+		<s:TextArea id="statusMessage" />
+		
+		<s:Button id="sendBtn" label="Send"
+				  enabled="{!twitterAuthPanel.statusPending &amp;&amp; statusMessage.text != ''}"
+				  click="twitterAuthPanel.statusClickHandler(statusMessage.text)"/>
+		<s:Button id="logOutBtn" label="Logout"
+				  click="twitterAuthPanel.logoutClickHandler(event)" />
+		
+		<s:List id="listTweeter" dataProvider="{twitter.timelineTweets}" useVirtualLayout="false" top="100"
+				itemRenderer="com.gread.twitterApp.view.components.tweetItemRender" height="400" width="450" />
+		-->
+	</s:Group>
+</s:Group>

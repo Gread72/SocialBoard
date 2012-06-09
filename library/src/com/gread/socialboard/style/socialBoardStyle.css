@@ -1,0 +1,27 @@
+/* CSS file */
+@namespace s "library://ns.adobe.com/flex/spark";
+@namespace mx "library://ns.adobe.com/flex/mx";
+
+@font-face { 
+	src: url("font/BigCaslon.ttf"); 
+	fontFamily: BigCaslon;
+	embedAsCFF:true; 
+	advancedAntiAliasing: true; 
+}
+
+.logo{
+	fontSize : 32pt;
+	fontFamily: BigCaslon;
+}
+
+.title{
+	fontSize : 26pt;
+	fontFamily: BigCaslon;
+}
+
+
+/*
+s:label{
+	fontSize : 18pt;	
+}
+*/

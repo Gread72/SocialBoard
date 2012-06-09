@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:Group xmlns:fx="http://ns.adobe.com/mxml/2009" 
+		 xmlns:s="library://ns.adobe.com/flex/spark" 
+		 xmlns:mx="library://ns.adobe.com/flex/mx"
+		 xmlns:view="com.gread.socialboard.view.*" 
+		 currentState="{appModel.currentState}">
+	<fx:Declarations>
+		<!-- Place non-visual elements (e.g., services, value objects) here -->
+	</fx:Declarations>
+	
+	<fx:Style source="com/gread/socialboard/style/socialBoardStyle.css" />
+	
+	<fx:Script>
+		<![CDATA[
+			import com.gread.socialboard.model.ApplicationModel;
+			
+			[Inject]
+			[Bindable]
+			public var appModel:ApplicationModel;
+			
+			
+		]]>
+	</fx:Script>
+	
+	<s:states>
+		<s:State id="home" name="home"/>
+		<s:State id="socialFeed" name="socialFeed" />
+	</s:states>
+	
+	<view:HomeView width="100%" height="100%" visible.home="true" visible.socialFeed="false" />
+	
+	<view:SocialFeedView width="100%" height="100%" visible.home="false" visible.socialFeed="true" />
+	
+</s:Group>

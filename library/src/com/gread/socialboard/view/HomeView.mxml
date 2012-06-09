@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:HGroup xmlns:fx="http://ns.adobe.com/mxml/2009" 
+		 xmlns:s="library://ns.adobe.com/flex/spark" 
+		 xmlns:mx="library://ns.adobe.com/flex/mx"
+		 xmlns:home="com.gread.socialboard.view.home.*" gap="0">
+	<fx:Declarations>
+		<!-- Place non-visual elements (e.g., services, value objects) here -->
+	</fx:Declarations>
+	<fx:Script>
+		<![CDATA[
+			import com.gread.socialboard.model.HomeViewPM;
+		
+			[Inject]
+			[Bindable]
+			public var homeViewPM:HomeViewPM;
+		]]>
+	</fx:Script>
+	
+	<home:HomeDisplay skinClass="com.gread.socialboard.view.home.HomeDisplaySkin" width="45%" currentServiceStatus="{homeViewPM.areServicesReady}" />
+	
+	<home:SocialGridPanel skinClass="com.gread.socialboard.view.home.SocialGridPanelSkin" width="55%" 
+						  dataProvider="{homeViewPM.socialFeedSources}" />
+	
+</s:HGroup>

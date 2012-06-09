@@ -1,0 +1,10 @@
+<swiz:BeanProvider
+	xmlns:fx="http://ns.adobe.com/mxml/2009"
+	xmlns:service="com.gread.socialboard.service.*"
+	xmlns:model="com.gread.socialboard.model.*"
+	xmlns:controller="com.gread.socialboard.controller.*"
+	xmlns:swiz="http://swiz.swizframework.org">
+	
+	
+	
+</swiz:BeanProvider>

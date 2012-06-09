@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<flexLibProperties includeAllClasses="true" useMultiPlatformConfig="false" version="3">
+  <includeClasses>
+    <classEntry path="com.gread.socialboard.swiz.Config"/>
+    <classEntry path="com.gread.socialboard.view.Container"/>
+    <classEntry path="com.gread.socialboard.view.home.HomeDisplay"/>
+    <classEntry path="com.gread.socialboard.view.home.HomeDisplaySkin"/>
+    <classEntry path="com.gread.socialboard.view.HomeView"/>
+    <classEntry path="com.gread.socialboard.view.home.SocialGridPanel"/>
+    <classEntry path="com.gread.socialboard.view.home.SocialGridPanelSkin"/>
+    <classEntry path="com.gread.socialboard.model.HomeViewPM"/>
+    <classEntry path="com.gread.socialboard.controller.MainController"/>
+    <classEntry path="com.gread.socialboard.model.ApplicationModel"/>
+    <classEntry path="com.gread.socialboard.model.vo.SocialDataVO"/>
+    <classEntry path="com.gread.socialboard.model.vo.FeedSourceVO"/>
+    <classEntry path="com.gread.socialboard.view.home.SourceBlock"/>
+    <classEntry path="com.gread.socialboard.view.home.SourceBlockSkin"/>
+    <classEntry path="com.gread.socialboard.service.ISocialService"/>
+    <classEntry path="com.gread.socialboard.service.TwitterService"/>
+    <classEntry path="com.gread.socialboard.events.SocialFeedSourceEvent"/>
+    <classEntry path="com.gread.socialboard.view.SocialFeedView"/>
+    <classEntry path="com.gread.socialboard.view.socialFeed.SourceList"/>
+    <classEntry path="com.gread.socialboard.view.socialFeed.SourceListItemRenderer"/>
+    <classEntry path="com.gread.socialboard.model.SocialFeedViewPM"/>
+    <classEntry path="com.gread.socialboard.events.SocialServiceEvent"/>
+    <classEntry path="com.gread.socialboard.service.HTTPSourceService"/>
+    <classEntry path="com.gread.socialboard.view.home.TwitterAuthPanel"/>
+    <classEntry path="com.gread.socialboard.model.TwitterAuthPanelPM"/>
+    <classEntry path="com.gread.socialboard.events.HomeViewEvent"/>
+    <classEntry path="com.gread.socialboard.service.FacebookService"/>
+    <classEntry path="com.gread.socialboard.view.home.FacebookPanel"/>
+    <classEntry path="com.gread.socialboard.model.FacebookPanelPM"/>
+    <classEntry path="com.gread.socialboard.view.socialFeed.SocialFeedPanel"/>
+    <classEntry path="com.gread.socialboard.view.socialFeed.SocialFeedDisplayItem"/>
+    <classEntry path="com.gread.socialboard.view.socialFeed.SocialFeedDisplayItemSkin"/>
+    <classEntry path="com.gread.socialboard.view.socialFeed.SocialFeedDisplay"/>
+    <classEntry path="com.gread.socialboard.view.socialFeed.StageWebViewExample"/>
+  </includeClasses>
+  <includeResources/>
+  <namespaceManifests/>
+</flexLibProperties>

@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:Group xmlns:fx="http://ns.adobe.com/mxml/2009" 
+		  xmlns:s="library://ns.adobe.com/flex/spark" 
+		  xmlns:mx="library://ns.adobe.com/flex/mx" 
+		  xmlns:social="com.gread.socialboard.view.socialFeed.*" 
+		  creationComplete="creationCompleteHandler(event)" width="100%">
+	<fx:Declarations>
+		<social:StageWebViewExample id="htmlBrowser" />
+	</fx:Declarations>
+	<fx:Script>
+		<![CDATA[
+			import com.gread.socialboard.events.HomeViewEvent;
+			import com.gread.socialboard.model.SocialFeedViewPM;
+			
+			import mx.events.FlexEvent;
+			
+			import spark.events.IndexChangeEvent;
+			
+			[Inject]
+			[Bindable]
+			public var socialFeedViewPM:SocialFeedViewPM;
+			
+			
+			[Dispatcher]
+			public var dispatcher:IEventDispatcher;
+			
+			
+			protected function clickHandler(event:MouseEvent):void
+			{
+				dispatcher.dispatchEvent(new HomeViewEvent(HomeViewEvent.CHANGE_CURRENT_STATE, false, false, "home"));
+			}
+			
+			protected function creationCompleteHandler(event:FlexEvent):void
+			{
+				socialFeedPanel.addEventListener("POPUP_URL", onPopupData);
+				
+			}
+			
+			private function onPopupData(evt:DataEvent):void{
+				trace(evt.data);
+				
+				htmlBrowser.init(this.parent.stage);
+				
+				htmlBrowser.gotoUrl(evt.data);
+				htmlBrowserContainer.visible = true;
+				
+			}
+			
+			protected function closeWindow_clickHandler(event:MouseEvent):void
+			{
+				htmlBrowser.webView.stage = null;
+				htmlBrowserContainer.visible = false;
+			}
+			
+		]]>
+	</fx:Script>
+	
+	<s:VGroup width="100%" height="100%">
+		<social:Header skinClass="com.gread.socialboard.view.socialFeed.HeaderSkin" sourceTitle="{socialFeedViewPM.titleOfSource}" 
+					   width="100%" height="35" click="clickHandler(event)" />
+		<social:SocialFeedPanel id="socialFeedPanel" dataProvider="{socialFeedViewPM.socialFeedData}" />
+	</s:VGroup>
+	
+	<s:Group id="htmlBrowserContainer" width="100%" height="100%" visible="false" click="closeWindow_clickHandler(event)">
+		<s:Rect width="100%" height="100%" alpha=".4">
+			<s:fill>
+				<s:SolidColor color="0" />
+			</s:fill>
+		</s:Rect>
+		<!--<s:Button id="closeWindow" label="Close Window" click="closeWindow_clickHandler(event)" top="0" right="0"  />-->
+	</s:Group>
+	
+	
+	
+</s:Group>
