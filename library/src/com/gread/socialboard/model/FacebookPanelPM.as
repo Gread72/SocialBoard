@@ -8,8 +8,8 @@ package com.gread.socialboard.model
 
 	public class FacebookPanelPM
 	{
-		public static const FB_STATUS_NOT_AUTHENTICATED:String = "Not Authenticated.";
-		public static const FB_STATUS_AUTHENTICATED:String = "Authenticated.";
+		public static const FB_STATUS_NOT_AUTHENTICATED:String = "FB User Not Authenticated.";
+		public static const FB_STATUS_AUTHENTICATED:String = "Authenticated FB User.";
 		
 		[Inject]
 		[Bindable]

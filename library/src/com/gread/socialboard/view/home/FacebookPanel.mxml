@@ -8,6 +8,7 @@
 	</fx:Declarations>
 	<fx:Script>
 		<![CDATA[
+			import com.gread.socialboard.model.ApplicationModel;
 			import com.gread.socialboard.model.FacebookPanelPM;
 			
 			import mx.events.FlexEvent;
@@ -15,6 +16,10 @@
 			[Inject]
 			[Bindable]
 			public var facebookPanelPM:FacebookPanelPM;
+			
+			[Inject]
+			[Bindable]
+			public var appModel:ApplicationModel;
 			
 			private var _timer:Timer = new Timer(500); 
 			
@@ -28,7 +33,7 @@
 			protected function onTimer(event:TimerEvent):void
 			{
 				if(facebookPanelPM){
-					if(facebookPanelPM.status == FacebookPanelPM.FB_STATUS_NOT_AUTHENTICATED){
+					if(facebookPanelPM.status == FacebookPanelPM.FB_STATUS_NOT_AUTHENTICATED && appModel.enableFacebook){
 						facebookPanelPM.getFacebookContent(this);
 						_timer.stop();
 						_timer.removeEventListener(TimerEvent.TIMER, onTimer);
@@ -37,11 +42,17 @@
 				
 			}
 			
+			protected function cnkEnableFacebook_changeHandler(event:Event):void
+			{
+				appModel.enableFacebook = cnkEnableFacebook.selected;
+			}
+			
 		]]>
 	</fx:Script>
 	<s:VGroup>
 		<s:Button id="setUpFBBtn" label="Facebook Login" click="facebookPanelPM.getFacebookContent(this)" width="160" />
 		<s:Label id="lblFBStatus" text="{facebookPanelPM.status}" />
+		<s:CheckBox id="cnkEnableFacebook" label="Enable Facebook at StartUp" selected="{appModel.enableFacebook}" change="cnkEnableFacebook_changeHandler(event)" />
 	</s:VGroup>
 	
 </s:Group>

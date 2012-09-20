@@ -16,9 +16,8 @@
 		]]>
 	</fx:Script>
 	
-	<home:HomeDisplay skinClass="com.gread.socialboard.view.home.HomeDisplaySkin" width="45%" currentServiceStatus="{homeViewPM.areServicesReady}" />
+	<home:HomeDisplay skinClass="com.gread.socialboard.view.home.HomeDisplaySkin" width="35%"  currentServiceStatus="{homeViewPM.areServicesReady}" />
 	
-	<home:SocialGridPanel skinClass="com.gread.socialboard.view.home.SocialGridPanelSkin" width="55%" 
-						  dataProvider="{homeViewPM.socialFeedSources}" />
+	<home:SocialGridPanel skinClass="com.gread.socialboard.view.home.SocialGridPanelSkin"  dataProvider="{homeViewPM.socialFeedSources}" />
 	
 </s:HGroup>

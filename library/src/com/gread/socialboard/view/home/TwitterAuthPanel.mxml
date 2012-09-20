@@ -36,7 +36,7 @@
 			protected function onTimer(event:TimerEvent):void
 			{
 				if(appModel){
-					if(currentState == "initial" && !appModel.isTwitterServiceAuthenticated){
+					if(currentState == "initial" && !appModel.isTwitterServiceAuthenticated && appModel.enableTwitter){
 						twitterAuthPanel.authenticate();
 						_timer.stop();
 						_timer.removeEventListener(TimerEvent.TIMER, onTimer);
@@ -45,6 +45,11 @@
 				}
 				
 				
+			}
+			
+			protected function cnkEnableTwitter_changeHandler(event:Event):void
+			{
+				appModel.enableTwitter = cnkEnableTwitter.selected;
 			}
 			
 		]]>
@@ -58,8 +63,9 @@
 	
 	<s:VGroup includeIn="initial">
 		<!--<s:Label text="Loading" verticalCenter="0" horizontalCenter="0"/>-->
-		<s:Button label="Twitter Login" click="twitterAuthPanel.authenticate();" width="160"  />
+		<s:Button label="Twitter Login" click="twitterAuthPanel.authenticate();" width="160"  />	
 	</s:VGroup>
+	
 	
 	
 	<s:Group includeIn="unauthenticated" horizontalCenter="0" verticalCenter="0">
@@ -81,7 +87,7 @@
 		<s:layout>
 			<s:VerticalLayout />
 		</s:layout>
-		<s:Label text="Hello Twitter User - {twitterAuthPanel.screenName}" />
+		<s:Label text="Authenticated User - {twitterAuthPanel.screenName}" />
 		<!--
 		<s:Label text="Set Status" enabled="{!twitterAuthPanel.statusPending}" />
 		<s:TextArea id="statusMessage" />
@@ -96,4 +102,8 @@
 				itemRenderer="com.gread.twitterApp.view.components.tweetItemRender" height="400" width="450" />
 		-->
 	</s:Group>
+	<s:Group y="100">
+		<s:CheckBox id="cnkEnableTwitter" label="Enable Twitter at Startup" selected="{appModel.enableTwitter}" change="cnkEnableTwitter_changeHandler(event)" />
+	</s:Group>
+	
 </s:Group>

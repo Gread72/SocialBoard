@@ -1,5 +1,6 @@
 package com.gread.socialboard.view.home
 {
+	import spark.components.Button;
 	import spark.components.Image;
 	import spark.components.Label;
 	import spark.skins.SparkSkin;
@@ -15,6 +16,8 @@ package com.gread.socialboard.view.home
 		public var twitterAuthPanel:TwitterAuthPanel;
 		
 		public var facebookPanel:FacebookPanel;
+		
+		public var settingsBtn:spark.components.Button;
 		
 		[Embed(source="com/gread/socialboard/assets/logo.png")]
 		public var logoObj:Class;
@@ -55,6 +58,11 @@ package com.gread.socialboard.view.home
 				facebookPanel = new FacebookPanel();
 				addElement(facebookPanel);
 			}
+			
+			if(!settingsBtn){
+				settingsBtn = new Button();
+				addElement(settingsBtn);
+			}
 		}
 		
 		override protected function updateDisplayList(unscaledWidth:Number, unscaledHeight:Number):void {
@@ -66,15 +74,19 @@ package com.gread.socialboard.view.home
 			title.x = logo.width + logo.x + 5;
 			title.y = logo.y + (logo.height/2) - (title.height/2) + 4;
 			
-			instruction.x = logo.x;
+			instruction.x = logo.x + 25;
 			instruction.y = 100;
-			instruction.width = Math.round(unscaledWidth * .60);
+			instruction.width = Math.round(unscaledWidth * .80);
 			
-			twitterAuthPanel.x = 10;
+			twitterAuthPanel.x = instruction.x;
 			twitterAuthPanel.y = instruction.y + instruction.height + 10;
 			
-			facebookPanel.x = 10;
+			facebookPanel.x = instruction.x;
 			facebookPanel.y = twitterAuthPanel.y + twitterAuthPanel.height + 30;
+			
+			settingsBtn.x = instruction.x;
+			settingsBtn.y = facebookPanel.y + facebookPanel.height + 30;
+			
 		
 		}
 		
