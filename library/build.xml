@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="Build File" basedir="." default="build">
+
+    <!--location of property file -->
+    <property file="${basedir}/build.properties" description="your specific properities for builds" />
+
+    <!-- additional tasks -->
+     <!-- <taskdef name="mxmlc" classname="flex.ant.MxmlcTask" classpath="${FLEX_TASKS}"/> -->
+    <taskdef name="compc" classname="flex.ant.CompcTask" classpath="${FLEX_TASKS}"/>
+    <!-- <taskdef name="asdoc" classname="flex.ant.AsDocTask" classpath="${FLEX_TASKS}"/>  -->
+	
+	<target name="main" description="Build SWC library">
+        <compc output="${BUILD_DIR}/${APP_NAME}.${APP_EXTENSION}" 
+        	include-classes="org.wgbh.betweenTheLion.GameMain"
+        	optimize="true" 
+        	debug="false"
+        	mobile="true"
+        	static-link-runtime-shared-libraries="false"
+        	dump-config="${basedir}/config.xml"> 
+            <source-path path-element="${basedir}/src"/>
+            <library-path dir="${LIBRARY_DIR}" includes="*.swc" append="true"/>
+            <!-- <load-config filename="${FLEX_HOME}/frameworks/air-config.xml" />   -->
+            <load-config filename="${FLEX_HOME}/frameworks/flex-config.xml" />
+            <!-- <load-config filename="${basedir}/custom-config.xml" /> -->
+        </compc> 
+    </target>
+    
+    <target name="main2" description="Build SWC library">
+        <compc output="${BUILD_DIR}/${APP_NAME}.${APP_EXTENSION}" 
+        	include-classes="org.wgbh.betweenTheLion.GameMain"
+        	optimize="true" 
+        	debug="false"
+        	mobile="true"
+        	static-link-runtime-shared-libraries="false"
+        	dump-config="${basedir}/config.xml"> 
+            <source-path path-element="${basedir}/src"/>
+            <library-path dir="${LIBRARY_DIR}" includes="*.swc" append="true"/>
+            <load-config filename="${FLEX_HOME}/frameworks/air-config.xml" />
+            <!-- <load-config filename="${FLEX_HOME}/frameworks/flex-config.xml" /> -->
+            <!-- <load-config filename="${basedir}/custom-config.xml" /> -->
+        </compc> 
+    </target>
+    
+    <target name="main3" description="Build SWC library">
+        <compc output="${BUILD_DIR}/${APP_NAME}.${APP_EXTENSION}" 
+        	include-classes="org.wgbh.betweenTheLion.GameMain"
+        	optimize="true" 
+        	debug="false"
+        	mobile="true"
+        	static-link-runtime-shared-libraries="false"
+        	dump-config="${basedir}/config.xml"> 
+            <source-path path-element="${basedir}/src"/>
+            <library-path dir="${LIBRARY_DIR}" includes="*.swc" append="true"/>
+            <!-- <load-config filename="${FLEX_HOME}/frameworks/air-config.xml" />   -->
+            <!-- <load-config filename="${FLEX_HOME}/frameworks/flex-config.xml" /> -->
+            <load-config filename="${basedir}/custom-config.xml" />
+        </compc> 
+    </target>
+	
+    <target name="clean"
+        description="Cleans up old files.">
+        <delete dir="${BUILD_DIR}" failOnError="false" includeEmptyDirs="true"  />
+    </target>
+    
+    <target name="build" depends="clean, main" />
+
+</project>

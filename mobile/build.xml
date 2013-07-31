@@ -1,0 +1,163 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="Build File" basedir="." default="build">
+
+    <!--location of property file -->
+    <property file="${basedir}/build.properties" description="your specific properities for builds" />
+
+    <!-- additional tasks -->
+    <taskdef name="mxmlc" classname="flex.ant.MxmlcTask" classpath="${FLEX_TASKS}"/>
+    <taskdef name="compc" classname="flex.ant.CompcTask" classpath="${FLEX_TASKS}"/>
+    <taskdef name="asdoc" classname="flex.ant.AsDocTask" classpath="${FLEX_TASKS}"/>
+	
+	<target name="debugCompileForAndroid"
+        description="Compiles the AIR application to a SWF file and places SWF in a temp directory to be packaged.">
+        <mxmlc file="${SOURCE_DIR}/${APP_NAME}.${APP_EXTENSION}"
+            output="${BUILD_DIR}/${APP_NAME}.swf"
+            locale="${LOCALE}"
+            static-rsls="true"
+            accessible="true"
+            configname="air"
+            debug="true"
+            failonerror="true"
+            fork="true"
+        	optimize="true"
+            maxmemory="512m">
+            <source-path path-element="${SOURCE_DIR}"/>
+            <library-path dir="../library/bin/" includes="*.swc" append="true"/>
+        </mxmlc>
+    </target>
+	
+	<target name="debugCompileForiOS"
+	     description="Compiles the AIR application to a SWF file and places SWF in a temp directory to be packaged.">
+        <mxmlc file="${SOURCE_DIR}/${APP_NAME}.${APP_EXTENSION}"
+            output="${BUILD_DIR}/${APP_NAME}.swf"
+            locale="${LOCALE}"
+            static-rsls="true"
+            accessible="true"
+            configname="air"
+            debug="true"
+            failonerror="true"
+            fork="true"
+        	optimize="true"
+            maxmemory="512m">
+            <source-path path-element="${SOURCE_DIR}"/>
+            <library-path dir="../library/bin/" includes="*.swc" append="true"/>
+        </mxmlc>
+    </target>
+	
+	<target name="compileForAndroid"
+        description="Compiles the AIR application to a SWF file and places SWF in a temp directory to be packaged.">
+        <mxmlc file="${SOURCE_DIR}/${APP_NAME}.${APP_EXTENSION}"
+            output="${RELEASE_DIR}/${APP_NAME}.swf"
+            locale="${LOCALE}"
+            static-rsls="true"
+            accessible="true"
+            configname="air"
+            debug="false"
+            failonerror="true"
+            fork="true"
+        	optimize="true"
+            maxmemory="512m">
+            <source-path path-element="${SOURCE_DIR}"/>
+            <library-path dir="../library/bin/" includes="*.swc" append="true"/>
+        </mxmlc>
+    </target>
+		
+	<target name="compileForiOS"
+	     description="Compiles the AIR application to a SWF file and places SWF in a temp directory to be packaged.">
+        <mxmlc file="${SOURCE_DIR}/${APP_NAME}.${APP_EXTENSION}"
+            output="${RELEASE_DIR}/${APP_NAME}.swf"
+            locale="${LOCALE}"
+            static-rsls="true"
+            accessible="true"
+            configname="air"
+            debug="true"
+            failonerror="false"
+            fork="true"
+        	optimize="true"
+            maxmemory="512m">
+            <source-path path-element="${SOURCE_DIR}"/>
+            <library-path dir="../library/bin/" includes="*.swc" append="true"/>
+        </mxmlc>
+    </target>
+	
+	
+    <target name="packageForAndroid" depends="compileForAndroid" description="Packages the build SWF file from a temp directory.">
+    	<echo message="Packaging for Android" />
+    	<exec executable="${ADT}" dir="${RELEASE_DIR}">
+			<arg value="-package"/>
+			<arg line="-target apk"/>
+			<arg line="-storetype pkcs12"/>
+			<arg line="-keystore ${KEYSTORE}" />
+			<arg line="-storepass ${CERT_PASSWORD}" />
+			<arg value="${APP_NAME}"/>
+			<arg value="${APP_NAME}-app.xml"/>
+			<arg value="${APP_NAME}.swf"/>
+    		<arg value="-C" />
+    		<arg value="${RELEASE_DIR}/"/>
+    		<arg value="assets/."/>
+    		<arg value="-C" /> 
+    		<arg value="${RELEASE_DIR}/"/>
+    		<arg value="icons/."/>
+		</exec>
+    	<delete dir="${TEMP_RELEASE_DIR}" failOnError="false" includeEmptyDirs="true" ></delete>
+    </target>
+	
+	<target name="packageForiOS" depends="compileForiOS"
+		        description="Packages the build SWF file from a temp directory.">
+			<exec executable="${ADT}" dir="${RELEASE_DIR}">
+				<arg value="-package"/>
+				<arg line="-target ipa-test"/>
+				<arg value="-provisioning-profile"/>
+				<arg value="${ios_provisioning}"/>
+				
+				<arg line="-storetype pkcs12"/>
+				<arg line="-keystore ${IOS_KEYSTORE}" />
+				<arg line="-storepass ${IOS_CERT_PASSWORD}" />
+				
+				<arg value="${APP_NAME}.ipa"/>
+				<arg value="${APP_NAME}-app.xml"/>
+				<arg value="${APP_NAME}.swf"/>
+				
+	    		<arg value="-C" />
+	    		<arg value="${RELEASE_DIR}/"/>
+	    		<arg value="assets/."/>
+				
+	    		<arg value="-C" /> 
+	    		<arg value="${RELEASE_DIR}/"/>
+	    		<arg value="icons/."/>
+				
+				<arg value="-C" /> 
+				<arg value="${RELEASE_DIR}/"/>
+				<arg value="Default.png"/>
+				
+				<arg value="-C" /> 
+				<arg value="${RELEASE_DIR}/"/>
+				<arg value="Default-Landscape.png"/>
+				
+				<arg value="-C" /> 
+				<arg value="${RELEASE_DIR}/"/>
+				<arg value="Default-LandscapeLeft@2x.png"/>
+			</exec>
+		</target>
+    
+    <target name="init" depends="clean" description="Cleans the deploy file">
+        <mkdir dir="${BUILD_DIR}"/>
+        <mkdir dir="${RELEASE_DIR}"/>
+        <available file="${KEYSTORE}" property="CERTIFICATE_FLAG"/>
+    </target>
+
+    <target name="clean" description="Cleans up old files.">
+        <!--<delete dir="${BUILD_DIR}" failOnError="false" includeEmptyDirs="true" />-->
+        <delete dir="${RELEASE_DIR}" failOnError="false" includeEmptyDirs="true" />
+    	<delete dir="${TEMP_RELEASE_DIR}" failOnError="false" includeEmptyDirs="true" ></delete>
+    </target>
+
+    <target name="cleanup"
+        description="Cleans up old files.">
+        <delete dir="${BUILD_DIR}" failOnError="false" includeEmptyDirs="true" />
+    </target>
+    
+    <target name="build" description="Build" depends="clean"></target>
+    
+</project>

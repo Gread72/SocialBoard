@@ -1,8 +1,11 @@
-.actionScriptProperties
-.flexProperties
-.project
-.settings/
+# Build and Release Folders
 bin/
 bin-debug/
+bin-release/
+html-template/
+
+build.properties
+.DS_Store
+dbTestKey.p12
 
 
